@@ -1,10 +1,12 @@
 package com.example.leetCodeProbs;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class StreamsPractice {
 
@@ -21,9 +23,14 @@ public class StreamsPractice {
         Predicate<Integer> even = i -> i % 2 != 0;
         List<Integer> integers = numList.stream().filter(even).map(x -> 2 * x).collect(Collectors.toList());
         //System.out.println(integers);
+        List<Integer> limitCollect = numList.stream().limit(2).collect(Collectors.toList());
+        System.out.println("limitCollect: "+limitCollect);
 
         Integer max = numList.stream().max(Integer::compareTo).get();
         System.out.println(max);
+
+        Integer secondMax = Arrays.stream(array1).boxed().sorted(Comparator.reverseOrder()).skip(1).findFirst().get();
+        System.out.println("secondMax: "+ secondMax);
 
         Integer sum = numList.stream().reduce(Integer::sum).get();
         System.out.println("sum -->" + sum);
@@ -49,6 +56,8 @@ public class StreamsPractice {
         List<String> sortedNames = names.stream().sorted().collect(Collectors.toList());
         System.out.println("sortedString--->" + sortedNames);
 
+
+
         //Given a list of numbers, partition them into two lists - one with even numbers and one with odd numbers using streams.
         Map<Boolean, List<Integer>> booleanListMap = numList.stream().collect(Collectors.partitioningBy(x -> x % 2 == 0));
         System.out.println("evenList --> "+ booleanListMap.get(true));
@@ -65,7 +74,11 @@ public class StreamsPractice {
 
 
 
+
+
         String input = "jad_ja_sda"; //convert this to camelcase
+        char[] inputCharArray = input.toCharArray();
+        Arrays.sort(inputCharArray);
 
 
 //        char[] chars = input.toCharArray();

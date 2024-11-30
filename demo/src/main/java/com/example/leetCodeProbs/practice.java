@@ -3,6 +3,7 @@ package com.example.leetCodeProbs;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class practice {
 
@@ -97,14 +98,17 @@ public class practice {
 
 
         Map<String, List<Employee>> collect = employeeList.stream().collect(Collectors.groupingBy(Employee::getDepartment));
-        Map<String, Employee> employeeMap = employeeList.stream().collect(Collectors.groupingBy(Employee::getDepartment,
+        Map<String, Integer> employeeMap = employeeList.stream().collect(Collectors.groupingBy(Employee::getDepartment,
                 Collectors.collectingAndThen(
                         Collectors.maxBy(Comparator.comparing(Employee::getSalary)),
-                        //employee -> employee.get().id
+                        employee -> employee.get().getSalary()
                         //employee -> employee.map(Employee::getSalary).orElse(0)
-                        Optional::get
+                        //Optional::get
 
                 )));
+        Map<String, Optional<Employee>> optionalMap = employeeList.stream().collect(Collectors.groupingBy(Employee::getDepartment,
+                Collectors.maxBy(Comparator.comparing(Employee::getSalary))));
+        System.out.println("optionalMap: "+optionalMap);
         System.out.println(collect);
         System.out.println("employeeMap--->"+employeeMap);
 
@@ -112,7 +116,17 @@ public class practice {
                 Collectors.collectingAndThen(
                         Collectors.summingInt(Employee::getSalary), Integer::intValue
                 )));
-        System.out.println("sumMap: "+sumMap);
+        Map<String, Integer> sumMap2 = employeeList.stream().collect(Collectors.groupingBy(Employee::getDepartment,
+                Collectors.summingInt(Employee::getSalary)
+                ));
+        System.out.println("sumMap2: "+sumMap2);
+
+        Map<Integer, Double> averageMap = employeeList.stream().collect(Collectors.groupingBy(Employee::getAge,
+                Collectors.averagingInt(Employee::getSalary)));
+        System.out.println("averageMap: "+averageMap);
+
+        Employee employee = employeeList.stream().sorted(Comparator.comparing(Employee::getSalary).reversed()).skip(1).findFirst().get();
+        System.out.println("employee with second heighest--> "+ employee.getSalary());
 
         List<Employee> nonDuplicateList = employeeList.stream().distinct().collect(Collectors.toList());
         System.out.println("nonDuplicateList--->" + nonDuplicateList);
@@ -124,10 +138,12 @@ public class practice {
                 Employee::getSalary, Integer::min));
         System.out.println("integerMap: "+ integerMap);
 
-        List<Integer> salaries = employeeList.stream().map(employee -> employee.getSalary()).collect(Collectors.toList());
-        Integer aLong = salaries.stream().max(Comparator.comparing(Integer::intValue)).get();
-        System.out.println(aLong);
-        salaries.stream().min(Integer::max).get();
+        employeeList.stream().sorted(Comparator.comparing(Employee::getName)).collect(Collectors.toList());
+
+//        List<Integer> salaries = employeeList.stream().map(employee -> employee.getSalary()).collect(Collectors.toList());
+//        Integer aLong = salaries.stream().max(Comparator.comparing(Integer::intValue)).get();
+//        System.out.println(aLong);
+//        salaries.stream().min(Integer::max).get();
 
         Integer maxsalary = employeeList.stream().max(Comparator.comparing(Employee::getSalary)).get().getSalary();
         System.out.println("maxSal--> "+maxsalary);
@@ -136,12 +152,25 @@ public class practice {
                 .keySet().stream().sorted(Collections.reverseOrder())
                 .collect(Collectors.toList()).get(1);
 
+        Integer secondMaxsalary = employeeList.stream().sorted(Comparator.comparing(Employee::getSalary).reversed()).skip(1).findFirst().get().getSalary();
+
         Integer first = employeeList.stream().collect(Collectors.groupingBy(Employee::getSalary, TreeMap::new, Collectors.toList()))
                 .keySet().stream().skip(1).findFirst().get();
         System.out.println(first);
 
         List<Employee> sortedList = employeeList.stream().sorted(Comparator.comparing(Employee::getSalary)).collect(Collectors.toList());
+
+        Map<String, Integer> collected = employeeList.stream().collect(Collectors.groupingBy(Employee::getDepartment,
+                Collectors.collectingAndThen(Collectors.mapping(Employee::getSalary, Collectors.toSet()),
+                        salarySet -> salarySet.stream().sorted(Comparator.reverseOrder()).skip(1).findFirst().get())));
+
+
+
+        System.out.println("department with second highest sal--> "+ collected);
+
+        Singelton single = Singelton.getInstance();
     }
+
 
 
 
