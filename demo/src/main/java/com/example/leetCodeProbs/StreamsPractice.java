@@ -64,7 +64,7 @@ public class StreamsPractice {
 
         //Find the common elements between two lists using streams.
         List<String> names2 = Arrays.asList("Abhi","HHII","Noni","MNAU","Niisss");
-        List<String> commonString = names2.stream().filter(n -> names.contains(n)).collect(Collectors.toList());
+        List<String> commonString = names2.stream().filter(names::contains).toList();
         System.out.println("commonString--> "+ commonString);
 
 

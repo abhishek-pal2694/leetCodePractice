@@ -23,9 +23,12 @@ public class ReverseString {
             System.out.println("reversed ---> " + words[j]);
         }
         System.out.println(output);
-        Map<String,String> numMap = new HashMap<>();
-        int k = 0 , j =0;
 
+        String test = "test";
+
+        System.out.println(test.indexOf('t'));
+        String substring = test.substring(0, 3+1-2);
+        int max=0 , left=0, right =0;
 
     }
 }

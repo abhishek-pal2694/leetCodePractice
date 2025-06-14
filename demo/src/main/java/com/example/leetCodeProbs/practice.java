@@ -149,8 +149,8 @@ public class practice {
         System.out.println("maxSal--> "+maxsalary);
 
         Integer secondHeighest = employeeList.stream().collect(Collectors.groupingBy(Employee::getSalary))
-                .keySet().stream().sorted(Collections.reverseOrder())
-                .collect(Collectors.toList()).get(1);
+                .keySet().stream().sorted(Collections.reverseOrder()).skip(1).findFirst().orElse(0);
+                //.collect(Collectors.toList()).get(1);
 
         Integer secondMaxsalary = employeeList.stream().sorted(Comparator.comparing(Employee::getSalary).reversed()).skip(1).findFirst().get().getSalary();
 
