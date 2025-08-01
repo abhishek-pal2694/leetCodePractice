@@ -8,6 +8,7 @@ public class RotateArray {
         rotate(input,3);
         System.out.println("output: ");
         Arrays.stream(input).forEach(System.out::print);
+
     }
 
     public static void rotate(int[] input, int k){

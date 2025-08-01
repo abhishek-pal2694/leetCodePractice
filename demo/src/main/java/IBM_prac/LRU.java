@@ -16,7 +16,7 @@ class runLRU{
 }
 public class LRU<K, V> extends LinkedHashMap<K, V> {
 
-    private int capacity;
+    private final int capacity;
 
     public LRU(int capacity){
         super(capacity,0.8f,true);

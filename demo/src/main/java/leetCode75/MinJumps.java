@@ -1,16 +1,13 @@
 package leetCode75;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MinJumps {
 
     public static void main(String[] args) {
         System.out.println(minJumps(new int[]{1, 4, 3, 2, 6, 7}));
-        String h = "test";
-        String substring = h.substring(0, 1);
-        for(Character c: h.toCharArray()){
-
-        }
     }
-
     static int minJumps(int[] arr) {
         // code here
         int maxReach = 0;
