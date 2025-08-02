@@ -23,7 +23,6 @@ class Solution {
             }else{
                 flag = false;
             }
-            Integer.MIN_VALUE
         }
         return flag;
     }
