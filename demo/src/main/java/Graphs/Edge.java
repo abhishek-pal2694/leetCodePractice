@@ -7,5 +7,6 @@ public class Edge {
     public Edge(int src, int dest){
         this.source = src;
         this.destination = dest;
+        
     }
 }
